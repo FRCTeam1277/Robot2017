@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team1277.robot;
 
+import org.usfirst.frc.team1277.robot.commands.Drive;
+import org.usfirst.frc.team1277.robot.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -8,8 +11,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1277.robot.commands.ExampleCommand;
-import org.usfirst.frc.team1277.robot.subsystems.ExampleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,7 +21,7 @@ import org.usfirst.frc.team1277.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+    public static DriveTrain driveTrain;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -32,8 +33,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
+		RobotMap.init();
+        driveTrain = new DriveTrain();
+
+        oi = new OI();
+		chooser.addDefault("Default Auto", new Drive());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
