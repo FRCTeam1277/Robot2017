@@ -6,8 +6,8 @@ import org.usfirst.frc.team1277.robot.commands.Drive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
-    public void drive(double magnitude, double direction, double rotation) {
-    	RobotMap.driveTrainRobotDrive.mecanumDrive_Polar(magnitude, direction, rotation);
+    public void drive(double x, double y, double rotation, double gyroAngle) {
+    	RobotMap.driveTrainRobotDrive.mecanumDrive_Cartesian(x, y, rotation, gyroAngle);
     }
     
     public void initDefaultCommand() {

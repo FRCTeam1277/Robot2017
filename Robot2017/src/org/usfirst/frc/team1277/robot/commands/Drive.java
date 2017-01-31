@@ -17,7 +17,8 @@ public class Drive extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.driveTrain.drive(OI.getJoystick().getRawAxis(1), OI.getJoystick().getRawAxis(0), OI.getJoystick().getRawAxis(2));
+		Robot.driveTrain.drive(OI.getJoystick().getRawAxis(3), OI.getJoystick().getRawAxis(2),
+				OI.getJoystick().getRawAxis(0), 0.0);
 	}
 
 	@Override
@@ -28,11 +29,11 @@ public class Drive extends Command {
 	
 	@Override
 	protected void end() {
-    	Robot.driveTrain.drive(0, 0, 0);
+    	Robot.driveTrain.drive(0, 0, 0, 0);
 	}
 
 	@Override
 	protected void interrupted() {
-    	Robot.driveTrain.drive(0, 0, 0);
+    	Robot.driveTrain.drive(0, 0, 0, 0);
 	}
 }
