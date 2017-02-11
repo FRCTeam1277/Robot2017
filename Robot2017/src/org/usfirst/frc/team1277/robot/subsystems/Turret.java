@@ -18,6 +18,6 @@ public class Turret extends Subsystem {
     
     public void initDefaultCommand() {
     	// This will happen if nothing else is happening.
-    	setDefaultCommand(new TurretDrive());
+//    	setDefaultCommand(new TurretDrive());
     }
 }

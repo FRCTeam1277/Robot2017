@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1277.robot.subsystems;
 
+import org.usfirst.frc.team1277.robot.Robot;
 import org.usfirst.frc.team1277.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -44,7 +45,7 @@ public class TargetingCamera extends PIDSubsystem {
 		SmartDashboard.putNumber("PID Output", output);
 		
 		// This breaks encapsulation.
-		RobotMap.driveTrainRearLeftMotor.pidWrite(output);
+		Robot.driveTrain.drive(0, 0, output);
 	}
 
 	@Override

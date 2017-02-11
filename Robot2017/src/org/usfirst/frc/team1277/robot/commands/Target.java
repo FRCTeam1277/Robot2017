@@ -6,12 +6,13 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Target extends Command {
 	public Target() {
-        requires(Robot.turret);
+        requires(Robot.driveTrain);
         requires(Robot.camera);
    }
 
 	@Override
 	protected void initialize() {
+		Robot.driveTrain.initialize();
 		Robot.camera.enable();
 	}
 
