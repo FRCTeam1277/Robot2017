@@ -1,8 +1,10 @@
 
 package org.usfirst.frc.team1277.robot;
 
-import org.usfirst.frc.team1277.robot.commands.Drive;
+import org.usfirst.frc.team1277.robot.commands.Target;
 import org.usfirst.frc.team1277.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1277.robot.subsystems.TargetingCamera;
+import org.usfirst.frc.team1277.robot.subsystems.Turret;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,8 +22,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
     public static DriveTrain driveTrain;
+    public static Turret turret;
+    public static TargetingCamera camera;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -34,10 +37,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
+		
         driveTrain = new DriveTrain();
-
+        turret = new Turret();
+        camera = new TargetingCamera();
+        
         oi = new OI();
-		chooser.addDefault("Default Auto", new Drive());
+		chooser.addDefault("Default Auto", new Target());
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
@@ -115,6 +122,5 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
 	}
 }
