@@ -4,10 +4,12 @@ import org.usfirst.frc.team1277.Team1277RobotDrive;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
@@ -24,6 +26,13 @@ public class RobotMap {
     public static SpeedController driveTrainFrontRightMotor;
     public static SpeedController driveTrainRearRightMotor;
 
+    public static SpeedController shooterMainMotor;
+    public static Encoder shooterMainEncoder;
+    public static SpeedController shooterFeedMotor;
+    public static Encoder shooterFeedEncoder;
+
+    public static Ultrasonic ultra;
+    
 	public static NetworkTable contours;
 
     public static Team1277RobotDrive driveTrainRobotDrive;
@@ -37,6 +46,13 @@ public class RobotMap {
         driveTrainRearLeftMotor = new Spark(0);        
     	driveTrainFrontRightMotor = new Spark(2);
         driveTrainRearRightMotor = new Spark(3);
+        
+        ultra = new Ultrasonic(0, 0); // DigitalOutput 1 = ping,  DigitalInput 1 = echo
+        
+        shooterMainMotor = new Spark(4);
+        shooterMainEncoder = new Encoder(1, 2, false, Encoder.EncodingType.k4X);
+        shooterFeedMotor = new Spark(5);
+        shooterFeedEncoder = new Encoder(3, 4, false, Encoder.EncodingType.k4X);
         
         driveTrainRobotDrive = new Team1277RobotDrive(driveTrainFrontLeftMotor, driveTrainRearLeftMotor, driveTrainFrontRightMotor, driveTrainRearRightMotor);
 

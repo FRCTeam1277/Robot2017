@@ -1,16 +1,19 @@
 package org.usfirst.frc.team1277;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 
-public class Team1277RobotDrive extends RobotDrive {
-	public Team1277RobotDrive(int frontLeftMotor, int rearLeftMotor, int frontRightMotor, int rearRightMotor) {
-		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-	}
+public class Team1277RobotDrive {
+	private SpeedController m_frontLeftMotor;
+	private SpeedController m_rearLeftMotor;
+	private SpeedController m_frontRightMotor;
+	private SpeedController m_rearRightMotor;
 
-	public Team1277RobotDrive(SpeedController frontLeftMotor, SpeedController rearLeftMotor,
-			SpeedController frontRightMotor, SpeedController rearRightMotor) {
-		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
+	public Team1277RobotDrive(SpeedController m_frontLeftMotor, SpeedController m_rearLeftMotor, SpeedController m_frontRightMotor,
+			SpeedController m_rearRightMotor) {
+		this.m_frontLeftMotor = m_frontLeftMotor;
+		this.m_frontRightMotor = m_frontRightMotor;
+		this.m_rearLeftMotor = m_rearLeftMotor;
+		this.m_rearRightMotor = m_rearRightMotor;
 	}
 
 	public void mecanumDrive_team1277(double x, double y, double r) {
@@ -33,8 +36,8 @@ public class Team1277RobotDrive extends RobotDrive {
 		
 		//add rotation and set motor values
 		m_frontLeftMotor.set((v2 - r) / (1 + r));
-		m_frontRightMotor.set((v1 + r) / (1 + r));
 		m_rearLeftMotor.set((v1 - r) / (1 + r));
+		m_frontRightMotor.set((v1 + r) / (1 + r));
 		m_rearRightMotor.set((v2 + r) / (1 + r));
 	}
 }

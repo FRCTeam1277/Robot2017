@@ -6,8 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Target extends Command {
 	public Target() {
-        requires(Robot.driveTrain);
-        requires(Robot.camera);
+        requires(Robot.driveTrain);	// Controlled directly by Robot.camera
+        requires(Robot.camera);		// See above
+        requires(Robot.shooter);
    }
 
 	@Override

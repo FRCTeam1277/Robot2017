@@ -3,6 +3,7 @@ package org.usfirst.frc.team1277.robot;
 
 import org.usfirst.frc.team1277.robot.commands.Target;
 import org.usfirst.frc.team1277.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1277.robot.subsystems.Shooter;
 import org.usfirst.frc.team1277.robot.subsystems.TargetingCamera;
 import org.usfirst.frc.team1277.robot.subsystems.Turret;
 
@@ -23,7 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
     public static DriveTrain driveTrain;
-    public static Turret turret;
+    public static Turret turret;	// Test bed
+    public static Shooter shooter;
     public static TargetingCamera camera;
 	public static OI oi;
 
@@ -41,6 +43,7 @@ public class Robot extends IterativeRobot {
         driveTrain = new DriveTrain();
         turret = new Turret();
         camera = new TargetingCamera();
+        shooter = new Shooter();
         
         oi = new OI();
 		chooser.addDefault("Default Auto", new Target());
