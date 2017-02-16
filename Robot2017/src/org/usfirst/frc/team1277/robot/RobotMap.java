@@ -4,9 +4,11 @@ import org.usfirst.frc.team1277.Team1277RobotDrive;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -31,32 +33,59 @@ public class RobotMap {
     public static SpeedController shooterFeedMotor;
     public static Encoder shooterFeedEncoder;
 
-    public static Ultrasonic ultra;
+    public static SpeedController climberMotor;
+    public static DigitalInput climberLimit;
+
+    public static Ultrasonic rangeFinder;
     
 	public static NetworkTable contours;
 
     public static Team1277RobotDrive driveTrainRobotDrive;
     
+    public static Servo gearServo;
+    
     public static AHRS ahrs;
+    
+    public static final int PWM_DRIVE_REAR_LEFT = 0;
+    public static final int PWM_DRIVE_FRONT_LEFT = 1;
+    public static final int PWM_DRIVE_FRONT_RIGHT = 2;
+    public static final int PWM_DRIVE_REAR_RIGHT = 3;
+    public static final int PWM_SHOOTER_MAIN  = 4;
+    public static final int PWM_SHOOTER_FEED  = 5;
+    public static final int PWM_GEAR_SERVO  = 6;
+    public static final int PWM_CLIMBER  = 7;
+    
+    public static final int DIO_PING = 0;
+    public static final int DIO_ECHO = 1;
+    public static final int DIO_MAIN_ENCODER_A = 2;
+    public static final int DIO_MAIN_ENCODER_B = 3;
+    public static final int DIO_FEED_ENCODER_A = 4;
+    public static final int DIO_FEED_ENCODER_B = 5;
+    public static final int DIO_CLIMBER_LIMIT = 6;
     
     public static void init() {    	
 		prefs = Preferences.getInstance();
 
-		driveTrainFrontLeftMotor = new Spark(1);
-        driveTrainRearLeftMotor = new Spark(0);        
-    	driveTrainFrontRightMotor = new Spark(2);
-        driveTrainRearRightMotor = new Spark(3);
+		driveTrainFrontLeftMotor = new Spark(PWM_DRIVE_FRONT_LEFT);
+        driveTrainRearLeftMotor = new Spark(PWM_DRIVE_REAR_LEFT);        
+    	driveTrainFrontRightMotor = new Spark(PWM_DRIVE_FRONT_RIGHT);
+        driveTrainRearRightMotor = new Spark(PWM_DRIVE_REAR_RIGHT);
         
-        ultra = new Ultrasonic(0, 0); // DigitalOutput 1 = ping,  DigitalInput 1 = echo
+        rangeFinder = new Ultrasonic(DIO_PING, DIO_ECHO); // DigitalOutput 0 = ping,  DigitalInput 0 = echo
         
-        shooterMainMotor = new Spark(4);
-        shooterMainEncoder = new Encoder(1, 2, false, Encoder.EncodingType.k4X);
-        shooterFeedMotor = new Spark(5);
-        shooterFeedEncoder = new Encoder(3, 4, false, Encoder.EncodingType.k4X);
+        shooterMainMotor = new Spark(PWM_SHOOTER_MAIN);
+        shooterMainEncoder = new Encoder(DIO_MAIN_ENCODER_A, DIO_MAIN_ENCODER_B, false, Encoder.EncodingType.k4X);
+        shooterFeedMotor = new Spark(PWM_SHOOTER_FEED);
+        shooterFeedEncoder = new Encoder(DIO_FEED_ENCODER_A, DIO_FEED_ENCODER_B, false, Encoder.EncodingType.k4X);
         
+        climberMotor = new Spark(PWM_CLIMBER);
+        climberLimit = new DigitalInput(DIO_CLIMBER_LIMIT);
+
         driveTrainRobotDrive = new Team1277RobotDrive(driveTrainFrontLeftMotor, driveTrainRearLeftMotor, driveTrainFrontRightMotor, driveTrainRearRightMotor);
 
 		contours = NetworkTable.getTable("GRIP/myContoursReport");
+		
+		gearServo = new Servo(PWM_GEAR_SERVO);
 		
 		ahrs = new AHRS(SPI.Port.kMXP);
 		if (ahrs.isConnected()) {

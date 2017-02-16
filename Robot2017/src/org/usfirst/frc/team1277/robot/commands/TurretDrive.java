@@ -33,11 +33,9 @@ public class TurretDrive extends Command {
 	
 	@Override
 	protected void end() {
-    	Robot.driveTrain.drive(0, 0, 0);
 	}
 
 	@Override
 	protected void interrupted() {
-    	Robot.driveTrain.drive(0, 0, 0);
 	}
 }

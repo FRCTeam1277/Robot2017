@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1277.robot;
 
 import org.usfirst.frc.team1277.robot.commands.Target;
+import org.usfirst.frc.team1277.robot.subsystems.Climber;
 import org.usfirst.frc.team1277.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1277.robot.subsystems.Shooter;
 import org.usfirst.frc.team1277.robot.subsystems.TargetingCamera;
@@ -27,6 +28,7 @@ public class Robot extends IterativeRobot {
     public static Turret turret;	// Test bed
     public static Shooter shooter;
     public static TargetingCamera camera;
+    public static Climber climber;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -44,6 +46,7 @@ public class Robot extends IterativeRobot {
         turret = new Turret();
         camera = new TargetingCamera();
         shooter = new Shooter();
+        climber = new Climber();
         
         oi = new OI();
 		chooser.addDefault("Default Auto", new Target());

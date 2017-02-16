@@ -36,7 +36,7 @@ public class TargetingCamera extends PIDSubsystem {
 			
 			center = center / allCenterX.length;
 			
-			input = center - VIEW_CENTER;
+			input = VIEW_CENTER -  center;
 		}
 		
 		SmartDashboard.putNumber("PID input", input);
@@ -46,6 +46,22 @@ public class TargetingCamera extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		SmartDashboard.putNumber("PID Output", output);
+
+		if (output > -0.2 && output < -0.01) {
+			output = -0.2;
+		}
+		
+		if (output > 0.01 && output < 0.3) {
+			output = 0.3;
+		}
+		
+		SmartDashboard.putNumber("Error", getPIDController().getAvgError());
+		
+		if (Math.abs(getPIDController().getAvgError()) < 10) {
+			output = 0.0;
+		}
+
+		SmartDashboard.putNumber("Adjusted PID Output", output);
 		
 		// This breaks encapsulation.
 		Robot.driveTrain.drive(0, 0, output);

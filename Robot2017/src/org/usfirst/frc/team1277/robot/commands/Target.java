@@ -14,6 +14,7 @@ public class Target extends Command {
 	@Override
 	protected void initialize() {
 		Robot.driveTrain.initialize();
+		Robot.shooter.initialize();
 		Robot.camera.enable();
 	}
 

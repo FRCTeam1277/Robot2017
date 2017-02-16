@@ -18,7 +18,7 @@ public class Shooter extends Subsystem {
 				RobotMap.shooterMainEncoder,
 				RobotMap.shooterMainMotor);
 		
-		mainController = new PIDController(
+		feedController = new PIDController(
 				RobotMap.prefs.getDouble("Feed P", 0.001),		// Scale input to approx -0.2 -> 0.2
 				RobotMap.prefs.getDouble("Feed I", 0.00001), 	// This multiples total sum of all errors, so it needs to be several orders of magnitude smaller than P
 				RobotMap.prefs.getDouble("Feed D", 0.0),

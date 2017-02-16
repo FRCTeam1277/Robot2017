@@ -21,14 +21,21 @@ public class Team1277RobotDrive {
 		double v = Math.sqrt((x * x) + (y * y));
 		
 		//find angle of direction vector
-		double a = Math.atan(y / x);
+		double a = Math.PI/2;
+		
+		if (x != 0.0) {
+			a = Math.atan(y / x);
+			
+			if (x < 0) {
+				a += Math.PI;
+			} else if (a < 0) {
+				a += 2.0 * Math.PI;
+			}
+		} else if (y < 0) {
+			a = 3.0 * Math.PI / 2.0;
+		}
 		
 		//change range of arctan from [-pi/2,pi/2] to [0,2pi]
-		if (x < 0) {
-			a += Math.PI;
-		} else if (a < 0) {
-			a += 2.0 * Math.PI;
-		}
 		
 		//get wheel values without rotation
 		double v1 = v * Math.sin(a + (Math.PI / 4));
