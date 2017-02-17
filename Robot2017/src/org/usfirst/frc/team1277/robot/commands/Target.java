@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Target extends Command {
 	public Target() {
         requires(Robot.driveTrain);	// Controlled directly by Robot.camera
-        requires(Robot.camera);		// See above
+        requires(Robot.targeting);		// See above
         requires(Robot.shooter);
    }
 
@@ -15,7 +15,7 @@ public class Target extends Command {
 	protected void initialize() {
 		Robot.driveTrain.initialize();
 		Robot.shooter.initialize();
-		Robot.camera.enable();
+		Robot.targeting.initialize();
 	}
 
 	@Override
@@ -31,13 +31,13 @@ public class Target extends Command {
 	
 	@Override
 	protected void end() {
-		Robot.camera.disable();
+		Robot.targeting.disable();
     	Robot.driveTrain.drive(0, 0, 0);
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.camera.disable();
+		Robot.targeting.disable();
     	Robot.driveTrain.drive(0, 0, 0);
 	}
 }

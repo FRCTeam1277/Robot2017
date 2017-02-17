@@ -5,13 +5,12 @@ import org.usfirst.frc.team1277.robot.commands.Target;
 import org.usfirst.frc.team1277.robot.subsystems.Climber;
 import org.usfirst.frc.team1277.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1277.robot.subsystems.Shooter;
-import org.usfirst.frc.team1277.robot.subsystems.TargetingCamera;
+import org.usfirst.frc.team1277.robot.subsystems.Targeting;
 import org.usfirst.frc.team1277.robot.subsystems.Turret;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,7 +26,7 @@ public class Robot extends IterativeRobot {
     public static DriveTrain driveTrain;
     public static Turret turret;	// Test bed
     public static Shooter shooter;
-    public static TargetingCamera camera;
+    public static Targeting targeting;
     public static Climber climber;
 	public static OI oi;
 
@@ -44,7 +43,7 @@ public class Robot extends IterativeRobot {
 		
         driveTrain = new DriveTrain();
         turret = new Turret();
-        camera = new TargetingCamera();
+        targeting = new Targeting();
         shooter = new Shooter();
         climber = new Climber();
         

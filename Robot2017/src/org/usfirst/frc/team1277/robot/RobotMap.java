@@ -55,8 +55,8 @@ public class RobotMap {
     public static final int PWM_GEAR_SERVO  = 6;
     public static final int PWM_CLIMBER  = 7;
     
-    public static final int DIO_PING = 0;
-    public static final int DIO_ECHO = 1;
+    public static final int DIO_ECHO = 0;
+    public static final int DIO_PING = 1;
     public static final int DIO_MAIN_ENCODER_A = 2;
     public static final int DIO_MAIN_ENCODER_B = 3;
     public static final int DIO_FEED_ENCODER_A = 4;
