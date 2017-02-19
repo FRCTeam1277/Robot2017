@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1277.robot.commands;
 
 import org.usfirst.frc.team1277.robot.Robot;
+import org.usfirst.frc.team1277.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Target extends Command {
 	public Target() {
@@ -31,13 +33,16 @@ public class Target extends Command {
 	
 	@Override
 	protected void end() {
+		// Order is important...
 		Robot.targeting.disable();
+		Robot.shooter.disable();
+    	RobotMap.shooterFeedMotor.set(0.0);
+    	RobotMap.shooterMainMotor.set(0.0);
     	Robot.driveTrain.drive(0, 0, 0);
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.targeting.disable();
-    	Robot.driveTrain.drive(0, 0, 0);
+		end();
 	}
 }

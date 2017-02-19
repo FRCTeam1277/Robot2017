@@ -17,7 +17,7 @@ public class Climb extends Command {
 
 	@Override
 	protected void execute() {
-		RobotMap.climberMotor.set(1.0);
+		Robot.climber.execute();
 	}
 
 	@Override
@@ -27,7 +27,8 @@ public class Climb extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return RobotMap.climberLimit.get();
+//		return RobotMap.climberLimit.get();
+		return false;
 	}
 
 }

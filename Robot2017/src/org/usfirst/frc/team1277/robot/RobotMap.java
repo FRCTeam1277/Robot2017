@@ -6,12 +6,16 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
@@ -32,6 +36,7 @@ public class RobotMap {
     public static Encoder shooterMainEncoder;
     public static SpeedController shooterFeedMotor;
     public static Encoder shooterFeedEncoder;
+//    public static Relay ledRelay;
 
     public static SpeedController climberMotor;
     public static DigitalInput climberLimit;
@@ -41,6 +46,8 @@ public class RobotMap {
 	public static NetworkTable contours;
 
     public static Team1277RobotDrive driveTrainRobotDrive;
+    
+    public static PowerDistributionPanel power;
     
     public static Servo gearServo;
     
@@ -52,11 +59,11 @@ public class RobotMap {
     public static final int PWM_DRIVE_REAR_RIGHT = 3;
     public static final int PWM_SHOOTER_MAIN  = 4;
     public static final int PWM_SHOOTER_FEED  = 5;
-    public static final int PWM_GEAR_SERVO  = 6;
-    public static final int PWM_CLIMBER  = 7;
+    public static final int PWM_CLIMBER  = 6;
+    public static final int PWM_GEAR_SERVO  = 7;
     
-    public static final int DIO_ECHO = 0;
-    public static final int DIO_PING = 1;
+    public static final int DIO_ECHO = 1;
+    public static final int DIO_PING = 0;
     public static final int DIO_MAIN_ENCODER_A = 2;
     public static final int DIO_MAIN_ENCODER_B = 3;
     public static final int DIO_FEED_ENCODER_A = 4;
@@ -66,17 +73,22 @@ public class RobotMap {
     public static void init() {    	
 		prefs = Preferences.getInstance();
 
+		power = new PowerDistributionPanel();
+		
 		driveTrainFrontLeftMotor = new Spark(PWM_DRIVE_FRONT_LEFT);
         driveTrainRearLeftMotor = new Spark(PWM_DRIVE_REAR_LEFT);        
     	driveTrainFrontRightMotor = new Spark(PWM_DRIVE_FRONT_RIGHT);
         driveTrainRearRightMotor = new Spark(PWM_DRIVE_REAR_RIGHT);
         
-        rangeFinder = new Ultrasonic(DIO_PING, DIO_ECHO); // DigitalOutput 0 = ping,  DigitalInput 0 = echo
-        
+        rangeFinder = new Ultrasonic(DIO_PING, DIO_ECHO, Unit.kInches); // DigitalOutput 0 = ping,  DigitalInput 0 = echo
+		rangeFinder.setEnabled(true);
+		rangeFinder.setAutomaticMode(true);
+
         shooterMainMotor = new Spark(PWM_SHOOTER_MAIN);
         shooterMainEncoder = new Encoder(DIO_MAIN_ENCODER_A, DIO_MAIN_ENCODER_B, false, Encoder.EncodingType.k4X);
-        shooterFeedMotor = new Spark(PWM_SHOOTER_FEED);
+        shooterFeedMotor = new Talon(PWM_SHOOTER_FEED);
         shooterFeedEncoder = new Encoder(DIO_FEED_ENCODER_A, DIO_FEED_ENCODER_B, false, Encoder.EncodingType.k4X);
+//        ledRelay = new Relay(0);
         
         climberMotor = new Spark(PWM_CLIMBER);
         climberLimit = new DigitalInput(DIO_CLIMBER_LIMIT);

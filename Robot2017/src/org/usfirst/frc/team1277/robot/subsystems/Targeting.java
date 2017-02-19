@@ -63,9 +63,7 @@ public class Targeting extends Subsystem {
 	}
 	
 	private PIDController cameraPid;
-	private PIDController sonarPid;
 	private StoredOutput cameraPidOutput;
-	private StoredOutput sonarPidOutput;
 	
 	private static double VIEW_CENTER = 160;
 	private double epsilon;
@@ -74,8 +72,8 @@ public class Targeting extends Subsystem {
 	}
 	
 	public void initialize() {
+		
 		cameraPidOutput = new StoredOutput();
-		sonarPidOutput = new StoredOutput();
 		
 		cameraPid = new PIDController(
 				RobotMap.prefs.getDouble("Targeting P", 0.001),		// Scale input to approx -0.2 -> 0.2
@@ -85,28 +83,22 @@ public class Targeting extends Subsystem {
 				cameraPidOutput
 				);
 		
-		sonarPid = new PIDController(
-				RobotMap.prefs.getDouble("Sonar P", 0.001),		// Scale input to approx -0.2 -> 0.2
-				RobotMap.prefs.getDouble("Sonar I", 0.00001), 	// This multiples total sum of all errors, so it needs to be several orders of magnitude smaller than P
-				RobotMap.prefs.getDouble("Sonar D", 0.0),		// This multiplies current error - previous error.
-				RobotMap.rangeFinder,
-				sonarPidOutput
-				);
-		
 		epsilon = RobotMap.prefs.getDouble("Shooter Epsilon", 0.01);
 		
 		cameraPid.enable();
-		sonarPid.enable();
 	}
 	
 	public void disable() {
 		cameraPid.disable();
-		sonarPid.disable();
 	}
 	
 	protected void usePIDOutput() {
 		SmartDashboard.putNumber("Camera PID Output", cameraPidOutput.output);
+		SmartDashboard.putBoolean("Sonar enabled", RobotMap.rangeFinder.isEnabled());
+		SmartDashboard.putNumber("Sonar value", RobotMap.rangeFinder.getRangeInches());
 
+		// Don't let output drop below a certain threshold, which is different
+		// for clockwise and anticlockwise (because)
 		if (cameraPidOutput.output > -0.2 && cameraPidOutput.output < -0.01) {
 			cameraPidOutput.output = -0.2;
 		}
@@ -115,6 +107,7 @@ public class Targeting extends Subsystem {
 			cameraPidOutput.output = 0.3;
 		}
 		
+		// Implement camera deadzone
 		SmartDashboard.putNumber("Error", cameraPid.getAvgError());
 		
 		if (Math.abs(cameraPid.getAvgError()) < 10) {
@@ -122,12 +115,10 @@ public class Targeting extends Subsystem {
 		}
 
 		SmartDashboard.putNumber("Adjusted Camera PID Output", cameraPidOutput.output);
-		SmartDashboard.putNumber("Sonar PID Output", sonarPidOutput.output);
 		
 		// This breaks encapsulation.
-		Robot.driveTrain.drive(0, sonarPidOutput.output, cameraPidOutput.output);
+		Robot.driveTrain.drive(0, 0, cameraPidOutput.output);
 		Robot.shooter.shoot(
-				Math.abs(sonarPidOutput.output) <= epsilon &&
 				Math.abs(cameraPidOutput.output) <= epsilon
 				);
 	}
