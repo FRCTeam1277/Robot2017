@@ -2,6 +2,7 @@ package org.usfirst.frc.team1277.robot;
 
 import org.usfirst.frc.team1277.robot.commands.Climb;
 import org.usfirst.frc.team1277.robot.commands.Target;
+import org.usfirst.frc.team1277.robot.commands.UnjamFeed;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -15,6 +16,7 @@ public class OI {
     public static Joystick joystick = new Joystick(0);
     public static Button button1 = new JoystickButton(joystick, 1);
     public static Button button3 = new JoystickButton(joystick, 3);
+    public static Button button10 = new JoystickButton(joystick, 10);
     
     public OI() {
     	// Run targeting while button1 is pressed.
@@ -22,6 +24,9 @@ public class OI {
     	
     	// Run climber while button 3 is pressed.
     	button3.whileHeld(new Climb());
+    	
+    	//Unjam shooter while button 10 is pressed
+    	button10.whileHeld(new UnjamFeed());
     }
     
     public static Joystick getJoystick() {

@@ -9,7 +9,7 @@ public class Climber extends Subsystem {
 	}
 
     public void execute() {		
-		RobotMap.climberMotor.set(0.5);
+		RobotMap.climberMotor.set(0.75);
     }
     
 	@Override

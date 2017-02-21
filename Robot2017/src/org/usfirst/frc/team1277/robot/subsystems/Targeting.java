@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1277.robot.subsystems;
 
+import org.usfirst.frc.team1277.robot.OI;
 import org.usfirst.frc.team1277.robot.Robot;
 import org.usfirst.frc.team1277.robot.RobotMap;
 
@@ -11,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Targeting extends Subsystem {
-
+	
 	class CameraPIDSource implements PIDSource {
 		PIDSourceType sourceType = PIDSourceType.kDisplacement;
 		
@@ -41,6 +42,11 @@ public class Targeting extends Subsystem {
 				center = center / allCenterX.length;
 				
 				input = VIEW_CENTER -  center;
+				if (OI.joystick.getRawButton(5)) {
+					input -= 4;
+				} else if (OI.joystick.getRawButton(7)) {
+					input += 4;
+				}
 			}
 			
 			SmartDashboard.putNumber("PID input", input);
@@ -110,7 +116,7 @@ public class Targeting extends Subsystem {
 		// Implement camera deadzone
 		SmartDashboard.putNumber("Error", cameraPid.getAvgError());
 		
-		if (Math.abs(cameraPid.getAvgError()) < 10) {
+		if (Math.abs(cameraPid.getAvgError()) < 8) {
 			cameraPidOutput.output = 0.0;
 		}
 
@@ -118,6 +124,8 @@ public class Targeting extends Subsystem {
 		
 		// This breaks encapsulation.
 		Robot.driveTrain.drive(0, 0, cameraPidOutput.output);
+		
+		
 		Robot.shooter.shoot(
 				Math.abs(cameraPidOutput.output) <= epsilon
 				);
