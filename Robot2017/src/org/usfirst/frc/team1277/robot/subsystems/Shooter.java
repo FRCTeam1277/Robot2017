@@ -137,9 +137,10 @@ public class Shooter extends Subsystem {
 			} else {
 				double setPoint = getSetPoint(maxRange);
 				if (OI.joystick.getRawButton(6)) {
-					setPoint = getSetPoint(maxRange + 6);
+					setPoint += 0.02;
+					setPoint = getSetPoint(maxRange + 12);
 				} else if (OI.joystick.getRawButton(8)) {
-					setPoint = getSetPoint(maxRange - 6);
+					setPoint -= 0.02;
 				}
 				double power = powerTotal / 10.0;
 				SmartDashboard.putNumber("Measure Power", V_MAX - (power * V_MAX));

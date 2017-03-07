@@ -15,6 +15,7 @@ public class Target extends Command {
 
 	@Override
 	protected void initialize() {
+		SmartDashboard.putBoolean("Is targeting?", true);
 		Robot.driveTrain.initialize();
 		Robot.shooter.initialize();
 		Robot.targeting.initialize();

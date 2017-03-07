@@ -1,6 +1,10 @@
 
 package org.usfirst.frc.team1277.robot;
 
+import org.usfirst.frc.team1277.robot.commands.DriveBackwards;
+import org.usfirst.frc.team1277.robot.commands.DriveToBaseline;
+import org.usfirst.frc.team1277.robot.commands.ShootLeft;
+import org.usfirst.frc.team1277.robot.commands.ShootRight;
 import org.usfirst.frc.team1277.robot.commands.Target;
 import org.usfirst.frc.team1277.robot.subsystems.Climber;
 import org.usfirst.frc.team1277.robot.subsystems.DriveTrain;
@@ -48,10 +52,12 @@ public class Robot extends IterativeRobot {
         climber = new Climber();
         
         oi = new OI();
-		chooser.addDefault("Default Auto", new Target());
+		chooser.addDefault("Drive To Baseline", new DriveToBaseline());
+		chooser.addObject("Shoot to the Left", new ShootLeft());
+		chooser.addObject("Shoot to the Right", new ShootRight());
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Auto", chooser);
 	}
 
 	/**

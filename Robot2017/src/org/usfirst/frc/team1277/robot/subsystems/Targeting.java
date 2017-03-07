@@ -41,12 +41,13 @@ public class Targeting extends Subsystem {
 				
 				center = center / allCenterX.length;
 				
-				input = VIEW_CENTER -  center;
 				if (OI.joystick.getRawButton(5)) {
-					input -= 4;
+					center -= 6;
 				} else if (OI.joystick.getRawButton(7)) {
-					input += 4;
+					center += 6;
 				}
+
+				input = VIEW_CENTER -  center;
 			}
 			
 			SmartDashboard.putNumber("PID input", input);
@@ -116,7 +117,7 @@ public class Targeting extends Subsystem {
 		// Implement camera deadzone
 		SmartDashboard.putNumber("Error", cameraPid.getAvgError());
 		
-		if (Math.abs(cameraPid.getAvgError()) < 8) {
+		if (Math.abs(cameraPid.getAvgError()) < RobotMap.prefs.getDouble("Deadzone Size", 9)) {
 			cameraPidOutput.output = 0.0;
 		}
 
